@@ -88,7 +88,7 @@ end
 ### 1. Вплив цілеспрямованості агентів на швидкість зростання популяції овець (до 200)
 
 <table>
-  <tr><th>№</th><th>Original</th><tr>Changed</tr></tr>
+  <tr><th>№</th><th>Original</th><th>Changed</th></tr>
   <tr><td>1</td><td>45</td><td>24</td></tr>
   <tr><td>2</td><td>32</td><td>34</td></tr>
   <tr><td>3</td><td>35</td><td>29</td></tr>
