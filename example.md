@@ -1,96 +1,56 @@
 ## Комп'ютерні системи імітаційного моделювання
-## СПм-22-11, **Іванов Іван Іванович**
+## СПм-22-4, **Уваров Георгій Олексійович**
 ### Лабораторна робота №**2**. Редагування імітаційних моделей у середовищі NetLogo
 
 <br>
 
-### Варіант 0, модель у середовищі NetLogo:
-[Traffic Basic](http://www.netlogoweb.org/launch#http://www.netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Traffic%20Basic.nlogo)
+### Варіант 7, модель у середовищі NetLogo:
+Wolf Sheep Predation. Прибрати "зграйність" вовків - тепер перед початком свого ходу вовки повинні "оглядатися", перевіряючи оточення, та обирати напрямок руху виходячи з наявності вівець та відсутності інших вовків. Якщо немає іншої можливості – переміщається випадково. При знаходженні на одній ділянці поля двох вовків залишається лише один з них. Вівці переміщаються випадковим чином, але при виявленні вовка на одній із клітин поруч змінюють напрямок на протилежний.
 
 <br>
 
 ### Внесені зміни у вихідну логіку моделі, за варіантом:
 
-**Виправлення розміщення активних агентів** на ігровому полі при ініціалізації моделі - спочатку машини могли розміщуватися на тієї ж самої ділянці дороги.  
-Замість
-<pre>
-set xcor abs random-xcor
-</pre>
-у процедурі setup-cars використовується виклик окремої нової процедури розміщення агентів:
-<pre>
-to set-freeposition
-  set xcor random-pxcor
-  if any? other turtles-here [ set-freeposition ]
-end
-</pre>
-Стара процедура separate-cars була видалена.  
-Додавання функції для отримання випадкового числа в заданому діапазоні для частого подальшого використання в інших змінах логіки моделі
-<pre>
-to-report get-random-float [ low rand ] 
-  report low + random-float rand
-end
-</pre>
-Наприклад, використовувалася при встановленні початкового значення швидкості активних агентів:
-<pre>
-set speed get-random-float 0.1 speed-limit / 10
-</pre>
-та при встановленні обмеження максимальної швідкості для поточного агенту:
-<pre>
-set speed-limit get-random-float 1.1 0.9
-</pre>
+**Вівці обходять вовків**
 
-**Встановлення ліміту максимальної швидкості для кожної машини здійснюється індивідуально**, а не однаково для всіх машин:
 <pre>
-;; set speed-limit 1
-set speed-limit get-random-float 1.1 0.9
-</pre>
-Використовується кольорова диференціація машин залежно від їхньої швидкісного ліміту:
-<pre>
-  ;; set label speed-limit
-  if(speed-limit > 1.2) [
-      set color green
+to avoid-wolves   ; wolf procedure
+  ifelse sum [count wolves-here] of neighbors = 0 [
+    move;
   ]
-   if(speed-limit > 1.5) [
-     set color red
-  ]
-
-  ;; ask sample-car [ set color red ]
-</pre>
-Сині найповільніші, зелені швидше, червоні найшвидші.  
-Забарвлення обраної для відстеження машини скасовано.
-
-**Зміна логіки гальмування та набору швидкості** залежно від наявності перешкоди перед машиною:
-<pre>
-  let car-ahead-1 one-of turtles-on patch-ahead 1
-    let car-ahead-2 one-of turtles-on patch-ahead 2
-    ifelse car-ahead-1 = nobody and car-ahead-2 = nobody
-      [ speed-up-car ] ;; otherwise, speed up
-      [ slow-down-car car-ahead-1 car-ahead-2 ]
-    ;; don't slow down below speed minimum or speed up beyond speed limit
-    if speed < speed-min [ set speed speed-min ]
-    if speed > speed-limit [ set speed speed-limit ]
-    fd speed
-</pre>
-Для цього також були внесені зміни до процедури slow-down-car, яка спрацьовує при гальмуванні:
-<pre>
-to slow-down-car [ car-ahead-1 car-ahead-2 ] ;; turtle procedure
-  if (car-ahead-1 != nobody) 
   [
-      let speed-car-ahead-1 [ speed ] of car-ahead-1
-      ;; slow down so you are driving more slowly than the car ahead of you
-      set speed speed-car-ahead-1 - deceleration
-      stop
-  ]
-  ]  
-  if (car-ahead-2 != nobody) [
-    let speed-car-ahead-2 [ speed ] of car-ahead-2
-    let speed-difference-ahead-2 abs speed - speed-car-ahead-2
-    set speed speed - speed-difference-ahead-2 / 2
+    repeat 4 [
+      if (any? wolves in-cone 1.2 90 ) [
+        rt 90;
+      ]
+    ]
+    fd 1;
   ]
 end
 </pre>
 
-<br>
+**Вовки обходять вовків та шукають овець**
+
+<pre>
+to seek-sheep   ;   wolf procedure
+  ifelse sum [count sheep-here] of neighbors = 0 [
+    if not (any? sheep-here)[
+      move; move randomly
+    ]
+  ]
+  [
+    repeat 6 [
+      if not (any? sheep in-cone 2 60 ) [
+        rt 60;
+      ]
+      if (any? wolves in-cone 2 60 ) [
+        rt 60;
+      ]
+    ]
+    fd 1;
+  ]
+end
+</pre>
 
 ### Внесені зміни у вихідну логіку моделі, на власний розсуд:
 
