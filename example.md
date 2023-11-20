@@ -81,21 +81,23 @@ to seek-sheep   ;   wolf procedure
 end
 </pre>
 
+![Скріншот моделі в процесі симуляції](red-woolf-screenshot.png)
+
 ## Обчислювальні експерименти
 *// тут повинен бути наведений опис одного експерименту, за аналогією з першої л/р.* 
-### 1. Вплив цілеспрямованості агентів на швидкість з'їдання всіх овець
+### 1. Вплив цілеспрямованості агентів на швидкість зростання популяції овець (до 200)
 
 <table>
   <tr><th>№</th><th>Original</th><tr>Changed</tr></tr>
-  <tr><td>1</td><td>?????</td><td>???????</td></tr>
-  <tr><td>2</td><td>?????</td><td>???????</td></tr>
-  <tr><td>3</td><td>?????</td><td>???????</td></tr>
-  <tr><td>4</td><td>?????</td><td>???????</td></tr>
-  <tr><td>5</td><td>?????</td><td>???????</td></tr>
-  <tr><td>6</td><td>?????</td><td>???????</td></tr>
-  <tr><td>7</td><td>?????</td><td>???????</td></tr>
-  <tr><td>8</td><td>?????</td><td>???????</td></tr>
-  <tr><td>9</td><td>?????</td><td>???????</td></tr>
-  <tr><td>10</td><td>?????</td><td>???????</td></tr>
-  <tr><td>AVG</td><td>?????</td><td>???????</td></tr>
+  <tr><td>1</td><td>45</td><td>24</td></tr>
+  <tr><td>2</td><td>32</td><td>34</td></tr>
+  <tr><td>3</td><td>35</td><td>29</td></tr>
+  <tr><td>4</td><td>26</td><td>28</td></tr>
+  <tr><td>5</td><td>29</td><td>33</td></tr>
+  <tr><td>6</td><td>29</td><td>29</td></tr>
+  <tr><td>7</td><td>40</td><td>21</td></tr>
+  <tr><td>8</td><td>39</td><td>24</td></tr>
+  <tr><td>9</td><td>30</td><td>28</td></tr>
+  <tr><td>10</td><td>26</td><td>26</td></tr>
+  <tr><td>AVG</td><td>33.1</td><td>27.6</td></tr>
 </table>
